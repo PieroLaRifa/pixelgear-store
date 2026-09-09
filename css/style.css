@@ -1,99 +1,480 @@
+/* ==========================================================================
+   PIXELGEAR — Hoja de estilos
+   Dirección de arte: "Ceniza y Bronce" — inspirada en la UI de Dark Souls /
+   Elden Ring (paneles oscuros, oro viejo, bordes finos, cero neón).
+   ========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap');
+
+/* --------------------------------------------------------------------------
+   1. TOKENS — paleta, tipografía, espaciado
+   -------------------------------------------------------------------------- */
 :root {
-    --bg-color: #0f111a;
-    --card-bg: #1a1d28;
-    --accent-color: #00ff88;
-    --text-color: #ffffff;
-    --text-muted: #a0a5b5;
+  /* color */
+  --bg-void:      #100E0B; /* fondo general, negro cálido */
+  --bg-panel:     #1B1712; /* header, footer, tarjetas */
+  --bg-panel-alt: #241E17; /* hover / superficies elevadas */
+  --ink:          #C7BEA6; /* texto principal, hueso/pergamino */
+  --ink-dim:      #8C8370; /* texto secundario */
+  --gold:         #A9812E; /* acento principal, "ceniza encendida" */
+  --gold-bright:  #D3A94C; /* hover / estados activos */
+  --blood:        #6E2020; /* alertas, ofertas, agotado */
+  --blood-bright: #9C3131;
+  --line:         #3A2F20; /* bordes finos, bronce apagado */
+
+  /* tipografía */
+  --font-display: 'Cinzel', 'Times New Roman', serif;
+  --font-body:    'EB Garamond', Georgia, serif;
+
+  /* espaciado */
+  --space-1: 0.5rem;
+  --space-2: 1rem;
+  --space-3: 1.75rem;
+  --space-4: 3rem;
+  --space-5: 5rem;
 }
 
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+/* --------------------------------------------------------------------------
+   2. RESET Y BASE
+   -------------------------------------------------------------------------- */
+*, *::before, *::after { box-sizing: border-box; }
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-    background-color: var(--bg-color);
-    color: var(--text-color);
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--bg-void);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 1.0625rem;
+  line-height: 1.6;
+  position: relative;
 }
 
+/* grano sutil sobre todo el sitio: da textura de piedra/pergamino sin pesar
+   nada (SVG generado, sin archivos externos) */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 999;
+  opacity: 0.05;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+main { flex: 1; }
+
+h1, h2, h3, h4 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  color: var(--ink);
+  margin: 0 0 var(--space-2);
+  letter-spacing: 0.02em;
+}
+
+p { margin: 0 0 var(--space-2); max-width: 62ch; }
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+ul { list-style: none; margin: 0; padding: 0; }
+
+img { max-width: 100%; display: block; }
+
+::selection {
+  background: var(--gold);
+  color: var(--bg-void);
+}
+
+:focus-visible {
+  outline: 2px solid var(--gold-bright);
+  outline-offset: 3px;
+}
+
+/* --------------------------------------------------------------------------
+   3. HEADER / NAVEGACIÓN
+   -------------------------------------------------------------------------- */
 header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1.5rem 5%;
-    background-color: #141721;
-    border-bottom: 2px solid var(--accent-color);
+  background-color: var(--bg-panel);
+  border-bottom: 1px solid var(--line);
+  padding: var(--space-2) var(--space-4);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  position: sticky;
+  top: 0;
+  z-index: 100;
 }
 
 .logo {
-    font-size: 1.8rem;
-    font-weight: bold;
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--ink);
 }
 
-.logo span {
-    color: var(--accent-color);
-}
+.logo span { color: var(--gold-bright); }
 
 nav ul {
-    display: flex;
-    list-style: none;
-    gap: 1.5rem;
+  display: flex;
+  gap: var(--space-4);
+  flex-wrap: wrap;
 }
 
-nav a {
-    color: var(--text-muted);
-    text-decoration: none;
-    font-weight: 500;
-    transition: color 0.3s;
+nav ul li a {
+  position: relative;
+  padding-bottom: 0.4rem;
+  font-size: 0.95rem;
+  letter-spacing: 0.03em;
+  color: var(--ink-dim);
+  transition: color 0.2s ease;
 }
 
-nav a:hover, nav a.active {
-    color: var(--accent-color);
+nav ul li a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 1px;
+  background: var(--gold-bright);
+  transform: scaleX(0);
+  transform-origin: center;
+  transition: transform 0.25s ease;
 }
 
-main {
-    flex: 1;
-    padding: 2rem 5%;
+nav ul li a:hover,
+nav ul li a:focus-visible {
+  color: var(--ink);
 }
 
+nav ul li a:hover::after,
+nav ul li a:focus-visible::after {
+  transform: scaleX(1);
+}
+
+nav ul li a.active {
+  color: var(--gold-bright);
+}
+
+nav ul li a.active::after {
+  transform: scaleX(1);
+  background: var(--gold);
+}
+
+#cant-carrito {
+  color: var(--gold-bright);
+  font-weight: 600;
+}
+
+/* --------------------------------------------------------------------------
+   4. HERO
+   -------------------------------------------------------------------------- */
 .hero {
-    text-align: center;
-    padding: 4rem 1rem;
-    background: linear-gradient(180deg, rgba(0,255,136,0.1) 0%, rgba(15,17,26,1) 100%);
-    border-radius: 12px;
+  position: relative;
+  padding: var(--space-5) var(--space-4);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 70vh;
+  justify-content: center;
+  background:
+    radial-gradient(ellipse at center, rgba(169, 129, 46, 0.08) 0%, transparent 60%),
+    radial-gradient(ellipse at center, transparent 40%, var(--bg-void) 100%),
+    var(--bg-void);
 }
 
 .hero h1 {
-    font-size: 2.8rem;
-    margin-bottom: 1rem;
-    color: var(--accent-color);
+  position: relative;
+  font-size: clamp(2rem, 5vw, 3.4rem);
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  padding-bottom: var(--space-3);
+  max-width: 20ch;
 }
 
+/* divisor ornamental: línea que se desvanece + rombo central,
+   como el aviso de objeto obtenido en Elden Ring */
+.hero h1::before {
+  content: "";
+  position: absolute;
+  bottom: 0.95rem;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 220px;
+  height: 1px;
+  background: linear-gradient(
+    to right,
+    transparent,
+    var(--gold) 20%,
+    var(--gold-bright) 50%,
+    var(--gold) 80%,
+    transparent
+  );
+}
+
+.hero h1::after {
+  content: "";
+  position: absolute;
+  bottom: calc(0.95rem - 4px);
+  left: 50%;
+  width: 8px;
+  height: 8px;
+  background: var(--gold-bright);
+  transform: translateX(-50%) rotate(45deg);
+  animation: ember-flicker 3.2s ease-in-out infinite;
+}
+
+@keyframes ember-flicker {
+  0%, 100% { opacity: 1; }
+  50%      { opacity: 0.55; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero h1::after { animation: none; }
+}
+
+.hero p {
+  font-style: italic;
+  color: var(--ink-dim);
+  font-size: 1.15rem;
+  max-width: 46ch;
+  margin-bottom: var(--space-3);
+}
+
+/* --------------------------------------------------------------------------
+   5. BOTONES
+   -------------------------------------------------------------------------- */
 .btn {
-    display: inline-block;
-    margin-top: 1.5rem;
-    padding: 0.8rem 1.8rem;
-    background-color: var(--accent-color);
-    color: #000;
-    font-weight: bold;
-    text-decoration: none;
-    border-radius: 6px;
-    transition: transform 0.2s;
+  display: inline-block;
+  font-family: var(--font-display);
+  font-size: 0.95rem;
+  letter-spacing: 0.04em;
+  color: var(--ink);
+  background-color: var(--bg-panel);
+  border: 1px solid var(--gold);
+  padding: 0.85rem 2.2rem;
+  transition: background-color 0.2s ease, box-shadow 0.2s ease, color 0.2s ease;
 }
 
-.btn:hover {
-    transform: scale(1.05);
+.btn:hover,
+.btn:focus-visible {
+  color: var(--bg-void);
+  background-color: var(--gold-bright);
+  box-shadow: 0 0 18px rgba(211, 169, 76, 0.35);
 }
 
+/* variante secundaria, para acciones menos prioritarias
+   (ej. "Vaciar carrito", "Cancelar") */
+.btn--ghost {
+  border-color: var(--line);
+  background-color: transparent;
+  color: var(--ink-dim);
+}
+
+.btn--ghost:hover,
+.btn--ghost:focus-visible {
+  color: var(--ink);
+  background-color: var(--bg-panel-alt);
+  border-color: var(--ink-dim);
+  box-shadow: none;
+}
+
+/* variante de peligro, para eliminar/vaciar */
+.btn--danger {
+  border-color: var(--blood);
+}
+
+.btn--danger:hover,
+.btn--danger:focus-visible {
+  background-color: var(--blood-bright);
+  color: var(--ink);
+  box-shadow: 0 0 18px rgba(156, 49, 49, 0.35);
+}
+
+/* --------------------------------------------------------------------------
+   6. TARJETAS DE PRODUCTO
+   Pensadas para productos.html / carrito.html: en vez del típico borde
+   redondeado + sombra gris, un marco de esquinas como un slot de inventario.
+   -------------------------------------------------------------------------- */
+.card {
+  position: relative;
+  background-color: var(--bg-panel);
+  border: 1px solid var(--line);
+  padding: var(--space-3);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  transition: border-color 0.2s ease;
+
+  background-repeat: no-repeat;
+  background-image:
+    linear-gradient(var(--gold), var(--gold)), linear-gradient(var(--gold), var(--gold)),
+    linear-gradient(var(--gold), var(--gold)), linear-gradient(var(--gold), var(--gold)),
+    linear-gradient(var(--gold), var(--gold)), linear-gradient(var(--gold), var(--gold)),
+    linear-gradient(var(--gold), var(--gold)), linear-gradient(var(--gold), var(--gold));
+  background-size:
+    2px 16px, 16px 2px,
+    2px 16px, 16px 2px,
+    2px 16px, 16px 2px,
+    2px 16px, 16px 2px;
+  background-position:
+    left top, left top,
+    right top, right top,
+    left bottom, left bottom,
+    right bottom, right bottom;
+}
+
+.card:hover { border-color: var(--line); }
+
+.card h3 {
+  font-size: 1.15rem;
+  margin-bottom: 0;
+}
+
+.card .price {
+  font-family: var(--font-display);
+  color: var(--gold-bright);
+  font-size: 1.2rem;
+}
+
+.card .price--old {
+  font-family: var(--font-body);
+  color: var(--ink-dim);
+  font-size: 0.9rem;
+  text-decoration: line-through;
+  margin-right: 0.5rem;
+}
+
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+  gap: var(--space-3);
+  padding: var(--space-4);
+}
+
+/* etiquetas de estado: nuevo / oferta / agotado */
+.badge {
+  display: inline-block;
+  align-self: flex-start;
+  font-size: 0.75rem;
+  letter-spacing: 0.05em;
+  padding: 0.2rem 0.6rem;
+  border: 1px solid currentColor;
+  color: var(--gold-bright);
+}
+
+.badge--oferta { color: var(--blood-bright); }
+.badge--agotado { color: var(--ink-dim); }
+
+/* --------------------------------------------------------------------------
+   7. FORMULARIOS
+   Base para validaciones JS de productos.html / carrito.html / admin.html
+   -------------------------------------------------------------------------- */
+label {
+  display: block;
+  font-size: 0.9rem;
+  color: var(--ink-dim);
+  margin-bottom: 0.35rem;
+}
+
+input, select, textarea {
+  width: 100%;
+  font-family: var(--font-body);
+  font-size: 1rem;
+  color: var(--ink);
+  background-color: var(--bg-void);
+  border: 1px solid var(--line);
+  padding: 0.65rem 0.85rem;
+  margin-bottom: var(--space-2);
+  transition: border-color 0.2s ease;
+}
+
+input:focus, select:focus, textarea:focus {
+  border-color: var(--gold);
+  outline: none;
+}
+
+/* estado de error para validaciones personalizadas (JS agrega esta clase) */
+.input-error {
+  border-color: var(--blood-bright) !important;
+}
+
+.error-message {
+  color: var(--blood-bright);
+  font-size: 0.85rem;
+  margin-top: -0.7rem;
+  margin-bottom: var(--space-2);
+}
+
+/* --------------------------------------------------------------------------
+   8. TABLAS (para admin.html)
+   -------------------------------------------------------------------------- */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: var(--space-3) 0;
+}
+
+th, td {
+  text-align: left;
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid var(--line);
+}
+
+th {
+  font-family: var(--font-display);
+  font-weight: 600;
+  color: var(--ink-dim);
+  font-size: 0.85rem;
+  letter-spacing: 0.04em;
+}
+
+/* --------------------------------------------------------------------------
+   9. FOOTER
+   -------------------------------------------------------------------------- */
 footer {
-    text-align: center;
-    padding: 1.5rem;
-    background-color: #141721;
-    color: var(--text-muted);
-    font-size: 0.9rem;
+  border-top: 1px solid var(--line);
+  background-color: var(--bg-panel);
+  text-align: center;
+  padding: var(--space-3);
+  color: var(--ink-dim);
+  font-size: 0.85rem;
+}
+
+/* --------------------------------------------------------------------------
+   10. RESPONSIVE
+   -------------------------------------------------------------------------- */
+@media (max-width: 640px) {
+  header {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: var(--space-2);
+  }
+
+  nav ul {
+    gap: var(--space-2);
+  }
+
+  .hero {
+    padding: var(--space-4) var(--space-2);
+    min-height: 60vh;
+  }
+
+  .cards-grid {
+    padding: var(--space-2);
+  }
 }
