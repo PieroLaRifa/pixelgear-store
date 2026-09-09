@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PixelGear | Catálogo de Periféricos</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header>
+        <div class="logo">Pixel<span>Gear</span></div>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="productos.html" class="active">Catálogo</a></li>
+                <li><a href="blog.html">Blog</a></li>
+                <li><a href="carrito.html">Carrito (<span id="cant-carrito">0</span>)</a></li>
+                <li><a href="admin.html">Admin</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <h1 style="text-align: center; margin-top: 2rem;">Inventario de Periféricos</h1>
+        <p style="text-align: center; margin: 0 auto 2rem auto;">Selecciona el equipamiento para tu setup gamer.</p>
+        
+        <!-- Contenedor dinámico manejado por JS -->
+        <section id="contenedor-productos" class="cards-grid">
+            <!-- Los productos se cargarán dinámicamente desde js/main.js -->
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 PixelGear Store - Duoc UC</p>
+    </footer>
+
+    <script src="js/main.js"></script>
+</body>
+</html>
