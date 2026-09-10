@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iniciar sesión | PixelGear</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header>
+        <div class="logo">Pixel<span>Gear</span></div>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="productos.html">Productos</a></li>
+                <li><a href="nosotros.html">Nosotros</a></li>
+                <li><a href="blog.html">Blogs</a></li>
+                <li><a href="contacto.html">Contacto</a></li>
+                <li><a href="carrito.html">Carrito (<span id="cant-carrito">0</span>)</a></li>
+                <li><a href="login.html" class="active">Iniciar sesión</a></li>
+                <li><a href="registro.html">Registrarse</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="page-section">
+            <form id="form-login" class="form-panel" novalidate>
+                <h1>Iniciar sesión</h1>
+
+                <label for="login-correo">Correo</label>
+                <input type="email" id="login-correo" name="correo" maxlength="100" autocomplete="email" placeholder="tu-correo@duoc.cl">
+                <span class="error-message" id="error-login-correo"></span>
+
+                <label for="login-clave">Contraseña</label>
+                <input type="password" id="login-clave" name="clave" maxlength="10" autocomplete="current-password" placeholder="4 a 10 caracteres">
+                <span class="error-message" id="error-login-clave"></span>
+
+                <button type="submit" class="btn">Iniciar sesión</button>
+
+                <p class="form-footer-note">¿Aún no tienes cuenta? <a href="registro.html" style="color: var(--gold-bright);">Regístrate aquí</a></p>
+            </form>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 PixelGear Store - Duoc UC</p>
+    </footer>
+
+    <script src="js/main.js"></script>
+    <script src="js/validaciones.js"></script>
+</body>
+</html>

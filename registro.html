@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registrarse | PixelGear</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header>
+        <div class="logo">Pixel<span>Gear</span></div>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="productos.html">Productos</a></li>
+                <li><a href="nosotros.html">Nosotros</a></li>
+                <li><a href="blog.html">Blogs</a></li>
+                <li><a href="contacto.html">Contacto</a></li>
+                <li><a href="carrito.html">Carrito (<span id="cant-carrito">0</span>)</a></li>
+                <li><a href="login.html">Iniciar sesión</a></li>
+                <li><a href="registro.html" class="active">Registrarse</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="page-section">
+            <form id="form-registro" class="form-panel" style="max-width: 640px;" novalidate>
+                <h1>Registro de usuario</h1>
+
+                <div class="form-row">
+                    <div>
+                        <label for="registro-run">RUN (sin puntos ni guion)</label>
+                        <input type="text" id="registro-run" name="run" maxlength="9" placeholder="19011022K">
+                        <span class="error-message" id="error-registro-run"></span>
+                    </div>
+                    <div>
+                        <label for="registro-nombre">Nombre</label>
+                        <input type="text" id="registro-nombre" name="nombre" maxlength="50" autocomplete="given-name">
+                        <span class="error-message" id="error-registro-nombre"></span>
+                    </div>
+                </div>
+
+                <label for="registro-apellidos">Apellidos</label>
+                <input type="text" id="registro-apellidos" name="apellidos" maxlength="100" autocomplete="family-name">
+                <span class="error-message" id="error-registro-apellidos"></span>
+
+                <label for="registro-correo">Correo</label>
+                <input type="email" id="registro-correo" name="correo" maxlength="100" autocomplete="email" placeholder="tu-correo@duoc.cl">
+                <span class="error-message" id="error-registro-correo"></span>
+
+                <div class="form-row">
+                    <div>
+                        <label for="registro-clave">Contraseña</label>
+                        <input type="password" id="registro-clave" name="clave" maxlength="10" autocomplete="new-password">
+                        <span class="error-message" id="error-registro-clave"></span>
+                    </div>
+                    <div>
+                        <label for="registro-clave-confirmar">Confirmar contraseña</label>
+                        <input type="password" id="registro-clave-confirmar" name="claveConfirmar" maxlength="10" autocomplete="new-password">
+                        <span class="error-message" id="error-registro-clave-confirmar"></span>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div>
+                        <label for="registro-region">Región</label>
+                        <select id="registro-region" name="region"></select>
+                        <span class="error-message" id="error-registro-region"></span>
+                    </div>
+                    <div>
+                        <label for="registro-comuna">Comuna</label>
+                        <select id="registro-comuna" name="comuna" disabled></select>
+                        <span class="error-message" id="error-registro-comuna"></span>
+                    </div>
+                </div>
+
+                <label for="registro-direccion">Dirección</label>
+                <input type="text" id="registro-direccion" name="direccion" maxlength="300" autocomplete="street-address">
+                <span class="error-message" id="error-registro-direccion"></span>
+
+                <button type="submit" class="btn">Registrar</button>
+
+                <p class="form-footer-note">¿Ya tienes cuenta? <a href="login.html" style="color: var(--gold-bright);">Inicia sesión aquí</a></p>
+            </form>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 PixelGear Store - Duoc UC</p>
+    </footer>
+
+    <script src="js/main.js"></script>
+    <script src="js/regiones.js"></script>
+    <script src="js/validaciones.js"></script>
+</body>
+</html>

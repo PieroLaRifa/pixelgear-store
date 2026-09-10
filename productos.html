@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PixelGear | Catálogo de Periféricos</title>
+    <title>Productos | PixelGear</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
@@ -12,22 +12,23 @@
         <nav>
             <ul>
                 <li><a href="index.html">Home</a></li>
-                <li><a href="productos.html" class="active">Catálogo</a></li>
-                <li><a href="blog.html">Blog</a></li>
+                <li><a href="productos.html" class="active">Productos</a></li>
+                <li><a href="nosotros.html">Nosotros</a></li>
+                <li><a href="blog.html">Blogs</a></li>
+                <li><a href="contacto.html">Contacto</a></li>
                 <li><a href="carrito.html">Carrito (<span id="cant-carrito">0</span>)</a></li>
-                <li><a href="admin.html">Admin</a></li>
+                <li><a href="login.html">Iniciar sesión</a></li>
+                <li><a href="registro.html">Registrarse</a></li>
             </ul>
         </nav>
     </header>
 
     <main>
-        <h1 style="text-align: center; margin-top: 2rem;">Inventario de Periféricos</h1>
-        <p style="text-align: center; margin: 0 auto 2rem auto;">Selecciona el equipamiento para tu setup gamer.</p>
-        
-        <!-- Contenedor dinámico manejado por JS -->
-        <section id="contenedor-productos" class="cards-grid">
-            <!-- Los productos se cargarán dinámicamente desde js/main.js -->
+        <section class="page-section" style="max-width: 1200px;">
+            <h1>Catálogo</h1>
+            <p>Todo lo que necesitas para subir de nivel tu setup.</p>
         </section>
+        <div id="contenedor-productos" class="cards-grid"></div>
     </main>
 
     <footer>
@@ -35,5 +36,7 @@
     </footer>
 
     <script src="js/main.js"></script>
+    <script src="js/productos.js"></script>
+    <script src="js/catalogo.js"></script>
 </body>
 </html>

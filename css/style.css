@@ -306,6 +306,60 @@ nav ul li a.active::after {
 }
 
 /* --------------------------------------------------------------------------
+   5.1 SECCIONES DE CONTENIDO (Nosotros, Contacto, Blogs, Login, Registro...)
+   -------------------------------------------------------------------------- */
+.page-section {
+  padding: var(--space-4);
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.page-section h1 {
+  font-size: clamp(1.8rem, 4vw, 2.4rem);
+}
+
+.page-section article + article {
+  margin-top: var(--space-4);
+}
+
+.form-panel {
+  max-width: 480px;
+  margin: 0 auto;
+  background-color: var(--bg-panel);
+  border: 1px solid var(--line);
+  padding: var(--space-4);
+}
+
+.form-panel h1 {
+  text-align: center;
+  margin-bottom: var(--space-3);
+  font-size: 1.6rem;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-2);
+}
+
+@media (max-width: 640px) {
+  .form-row { grid-template-columns: 1fr; }
+}
+
+.form-panel .btn {
+  width: 100%;
+  text-align: center;
+  margin-top: var(--space-1);
+}
+
+.form-footer-note {
+  text-align: center;
+  font-size: 0.9rem;
+  margin-top: var(--space-2);
+  color: var(--ink-dim);
+}
+
+/* --------------------------------------------------------------------------
    6. TARJETAS DE PRODUCTO
    Pensadas para productos.html / carrito.html: en vez del típico borde
    redondeado + sombra gris, un marco de esquinas como un slot de inventario.
@@ -366,6 +420,122 @@ nav ul li a.active::after {
   padding: var(--space-4);
 }
 
+/* emblema en lugar de foto de producto: encaja con la estética y no
+   depende de imágenes externas que no forman parte de esta entrega */
+.product-img-placeholder {
+  aspect-ratio: 1 / 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--bg-void);
+  border: 1px solid var(--line);
+  font-family: var(--font-display);
+  font-size: 2.4rem;
+  color: var(--ink-dim);
+  margin-bottom: var(--space-1);
+}
+
+.card a { color: var(--ink); }
+.card a:hover { color: var(--gold-bright); }
+
+.stock-info {
+  font-size: 0.8rem;
+  color: var(--ink-dim);
+}
+
+.stock-info--critico { color: var(--blood-bright); }
+.stock-info--agotado { color: var(--blood-bright); font-weight: 600; }
+
+/* -------- detalle de producto -------- */
+.detalle-producto {
+  display: grid;
+  grid-template-columns: 320px 1fr;
+  gap: var(--space-4);
+  align-items: start;
+}
+
+@media (max-width: 700px) {
+  .detalle-producto { grid-template-columns: 1fr; }
+}
+
+.detalle-producto .product-img-placeholder {
+  font-size: 4rem;
+}
+
+.selector-cantidad {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin: var(--space-2) 0;
+}
+
+.selector-cantidad input {
+  width: 70px;
+  margin-bottom: 0;
+  text-align: center;
+}
+
+/* -------- carrito -------- */
+.fila-carrito {
+  display: grid;
+  grid-template-columns: 70px 1fr auto auto;
+  gap: var(--space-2);
+  align-items: center;
+  padding: var(--space-2) 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.fila-carrito .product-img-placeholder {
+  aspect-ratio: 1/1;
+  width: 70px;
+  font-size: 1.2rem;
+  margin-bottom: 0;
+}
+
+.control-cantidad {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.control-cantidad button {
+  width: 28px;
+  height: 28px;
+  background: var(--bg-void);
+  border: 1px solid var(--line);
+  color: var(--ink);
+  cursor: pointer;
+  font-family: var(--font-display);
+}
+
+.control-cantidad button:hover { border-color: var(--gold); }
+
+.control-cantidad input {
+  width: 45px;
+  text-align: center;
+  margin-bottom: 0;
+}
+
+.resumen-carrito {
+  background-color: var(--bg-panel);
+  border: 1px solid var(--line);
+  padding: var(--space-3);
+  margin-top: var(--space-3);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: var(--font-display);
+  font-size: 1.3rem;
+}
+
+.resumen-carrito .price { font-size: 1.5rem; }
+
+.carrito-vacio {
+  text-align: center;
+  padding: var(--space-5) var(--space-2);
+  color: var(--ink-dim);
+}
+
 /* etiquetas de estado: nuevo / oferta / agotado */
 .badge {
   display: inline-block;
@@ -414,10 +584,20 @@ input:focus, select:focus, textarea:focus {
 }
 
 .error-message {
+  display: block;
   color: var(--blood-bright);
   font-size: 0.85rem;
   margin-top: -0.7rem;
   margin-bottom: var(--space-2);
+}
+
+/* si el JS no ha puesto texto de error todavía, no ocupa espacio */
+.error-message:empty {
+  display: none;
+}
+
+.field-ok {
+  border-color: var(--gold) !important;
 }
 
 /* --------------------------------------------------------------------------

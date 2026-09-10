@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi carrito | PixelGear</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header>
+        <div class="logo">Pixel<span>Gear</span></div>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="productos.html">Productos</a></li>
+                <li><a href="nosotros.html">Nosotros</a></li>
+                <li><a href="blog.html">Blogs</a></li>
+                <li><a href="contacto.html">Contacto</a></li>
+                <li><a href="carrito.html" class="active">Carrito (<span id="cant-carrito">0</span>)</a></li>
+                <li><a href="login.html">Iniciar sesión</a></li>
+                <li><a href="registro.html">Registrarse</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="page-section" style="max-width: 800px;">
+            <h1>Mi carrito de compras</h1>
+
+            <div id="contenedor-carrito"></div>
+
+            <div id="resumen-carrito" class="resumen-carrito" style="display: none;">
+                <span>Total: <span class="price" id="total-carrito">$0</span></span>
+                <div style="display: flex; gap: var(--space-2);">
+                    <button id="btn-vaciar-carrito" class="btn btn--ghost" style="width:auto;">Vaciar carrito</button>
+                    <button id="btn-pagar" class="btn" style="width:auto;">Pagar</button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 PixelGear Store - Duoc UC</p>
+    </footer>
+
+    <script src="js/main.js"></script>
+    <script src="js/productos.js"></script>
+    <script src="js/carrito.js"></script>
+</body>
+</html>

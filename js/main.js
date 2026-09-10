@@ -1,121 +1,86 @@
-// Base de datos local de productos
-const productos = [
-    {
-        id: 1,
-        nombre: "Teclado Mecánico TKL Switch Red",
-        categoria: "Teclados",
-        precio: 45990,
-        stock: 5,
-        badge: "Nuevo",
-        imagen: "https://via.placeholder.com/300x200/1B1712/D3A94C?text=Teclado+TKL",
-        descripcion: "Switches mecánicos lineales con respuesta ultrarrápida."
-    },
-    {
-        id: 2,
-        nombre: "Mouse Ultraligero 16000 DPI",
-        categoria: "Ratones",
-        precio: 32000,
-        stock: 12,
-        badge: "Oferta",
-        imagen: "https://via.placeholder.com/300x200/1B1712/D3A94C?text=Mouse+Gamer",
-        descripcion: "Sensor óptico de máxima precisión y cable liviano."
-    },
-    {
-        id: 3,
-        nombre: "Audífonos Surround 7.1",
-        categoria: "Audio",
-        precio: 54990,
-        stock: 2, // Stock crítico
-        badge: "Últimas unidades",
-        imagen: "https://via.placeholder.com/300x200/1B1712/D3A94C?text=Audifonos+7.1",
-        descripcion: "Aislamiento acústico pasivo y micrófono omnidireccional."
-    },
-    {
-        id: 4,
-        nombre: "Monitor Curvo 144Hz 24''",
-        categoria: "Monitores",
-        precio: 159990,
-        stock: 0,
-        badge: "Agotado",
-        imagen: "https://via.placeholder.com/300x200/1B1712/D3A94C?text=Monitor+144Hz",
-        descripcion: "Panel VA con 1ms de tiempo de respuesta."
-    }
-];
+/* ==========================================================================
+   MAIN.JS
+   Lógica compartida por todas las páginas de la tienda.
+   Por ahora: mantener el contador del carrito (localStorage) sincronizado
+   en el header, sin importar en qué página esté el usuario.
+   El detalle de "añadir/quitar producto" se implementa en productos.html /
+   detalle-producto.html / carrito.html.
+   ========================================================================== */
 
-// Cargar productos en la vista
-document.addEventListener("DOMContentLoaded", () => {
-    renderizarProductos();
-    actualizarContadorCarrito();
-});
+/* ==========================================================================
+   MAIN.JS
+   Lógica compartida por todas las páginas de la tienda:
+   - Contador del carrito en el header (todas las páginas).
+   - Funciones de manipulación del carrito en localStorage, usadas por
+     productos.html, detalle-producto.html y carrito.html.
+   Regla de negocio del carrito: no se puede agregar más unidades de un
+   producto que las que indica su stock disponible.
+   ========================================================================== */
 
-function renderizarProductos() {
-    const contenedor = document.getElementById("contenedor-productos");
-    if (!contenedor) return;
+const CLAVE_CARRITO = "pixelgear_carrito";
 
-    contenedor.innerHTML = "";
-
-    productos.forEach(prod => {
-        const tarjeta = document.createElement("article");
-        tarjeta.classList.add("card");
-
-        const esAgotado = prod.stock === 0;
-        const claseBadge = esAgotado ? "badge--agotado" : (prod.badge === "Oferta" ? "badge--oferta" : "");
-
-        tarjeta.innerHTML = `
-            <span class="badge ${claseBadge}">${prod.badge}</span>
-            <img src="${prod.imagen}" alt="${prod.nombre}">
-            <h3>${prod.nombre}</h3>
-            <p>${prod.descripcion}</p>
-            <div class="price">$${prod.precio.toLocaleString("es-CL")}</div>
-            <p><small>Stock disponible: ${prod.stock}</small></p>
-            <button 
-                class="btn ${esAgotado ? 'btn--ghost' : ''}" 
-                onclick="agregarAlCarrito(${prod.id})"
-                ${esAgotado ? 'disabled' : ''}>
-                ${esAgotado ? 'Sin Stock' : 'Agregar al Carrito'}
-            </button>
-        `;
-
-        contenedor.appendChild(tarjeta);
-    });
+function obtenerCarrito() {
+  const datos = localStorage.getItem(CLAVE_CARRITO);
+  return datos ? JSON.parse(datos) : [];
 }
 
-// Lógica del Carrito usando localStorage (Rúbrica D)
-function agregarAlCarrito(idProducto) {
-    let carrito = JSON.parse(localStorage.getItem("carrito_pixelgear")) || [];
-    const productoEncontrado = productos.find(p => p.id === idProducto);
+function guardarCarrito(carrito) {
+  localStorage.setItem(CLAVE_CARRITO, JSON.stringify(carrito));
+  actualizarContadorCarrito();
+}
 
-    if (!productoEncontrado || productoEncontrado.stock === 0) return;
+function agregarAlCarrito(producto, cantidad) {
+  const carrito = obtenerCarrito();
+  const existente = carrito.find((item) => item.id === producto.id);
+  const cantidadActual = existente ? existente.cantidad : 0;
+  const cantidadFinal = Math.min(cantidadActual + cantidad, producto.stock);
 
-    const itemEnCarrito = carrito.find(item => item.id === idProducto);
+  if (existente) {
+    existente.cantidad = cantidadFinal;
+  } else {
+    carrito.push({
+      id: producto.id,
+      nombre: producto.nombre,
+      precio: producto.precio,
+      cantidad: cantidadFinal
+    });
+  }
+  guardarCarrito(carrito);
+  return cantidadFinal;
+}
 
-    if (itemEnCarrito) {
-        if (itemEnCarrito.cantidad < productoEncontrado.stock) {
-            itemEnCarrito.cantidad++;
-        } else {
-            alert("Has alcanzado el límite de stock disponible de este producto.");
-            return;
-        }
-    } else {
-        carrito.push({
-            id: productoEncontrado.id,
-            nombre: productoEncontrado.nombre,
-            precio: productoEncontrado.precio,
-            cantidad: 1
-        });
-    }
+function quitarDelCarrito(id) {
+  const carrito = obtenerCarrito().filter((item) => item.id !== id);
+  guardarCarrito(carrito);
+}
 
-    localStorage.setItem("carrito_pixelgear", JSON.stringify(carrito));
-    actualizarContadorCarrito();
-    alert(`¡${productoEncontrado.nombre} agregado al carrito!`);
+function cambiarCantidadCarrito(id, nuevaCantidad, stockMaximo) {
+  const carrito = obtenerCarrito();
+  const item = carrito.find((producto) => producto.id === id);
+  if (!item) return;
+
+  if (nuevaCantidad <= 0) {
+    quitarDelCarrito(id);
+    return;
+  }
+  item.cantidad = stockMaximo ? Math.min(nuevaCantidad, stockMaximo) : nuevaCantidad;
+  guardarCarrito(carrito);
+}
+
+function vaciarCarrito() {
+  guardarCarrito([]);
+}
+
+function calcularTotalCarrito(carrito) {
+  return carrito.reduce((total, item) => total + item.precio * item.cantidad, 0);
 }
 
 function actualizarContadorCarrito() {
-    const contador = document.getElementById("cant-carrito");
-    if (!contador) return;
-
-    const carrito = JSON.parse(localStorage.getItem("carrito_pixelgear")) || [];
-    const totalItems = carrito.reduce((acc, item) => acc + item.cantidad, 0);
-    
-    contador.textContent = totalItems;
+  const carrito = obtenerCarrito();
+  const totalItems = carrito.reduce((acumulado, item) => acumulado + item.cantidad, 0);
+  document.querySelectorAll("#cant-carrito").forEach((span) => {
+    span.textContent = totalItems;
+  });
 }
+
+document.addEventListener("DOMContentLoaded", actualizarContadorCarrito);

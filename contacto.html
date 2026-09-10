@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contacto | PixelGear</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header>
+        <div class="logo">Pixel<span>Gear</span></div>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="productos.html">Productos</a></li>
+                <li><a href="nosotros.html">Nosotros</a></li>
+                <li><a href="blog.html">Blogs</a></li>
+                <li><a href="contacto.html" class="active">Contacto</a></li>
+                <li><a href="carrito.html">Carrito (<span id="cant-carrito">0</span>)</a></li>
+                <li><a href="login.html">Iniciar sesión</a></li>
+                <li><a href="registro.html">Registrarse</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="page-section">
+            <form id="form-contacto" class="form-panel" novalidate>
+                <h1>Formulario de Contacto</h1>
+
+                <label for="contacto-nombre">Nombre completo</label>
+                <input type="text" id="contacto-nombre" name="nombre" maxlength="100" autocomplete="name" placeholder="Ej: Piero Fernández">
+                <span class="error-message" id="error-contacto-nombre"></span>
+
+                <label for="contacto-correo">Correo (opcional)</label>
+                <input type="email" id="contacto-correo" name="correo" maxlength="100" autocomplete="email" placeholder="tu-correo@gmail.com">
+                <span class="error-message" id="error-contacto-correo"></span>
+
+                <label for="contacto-mensaje">Mensaje</label>
+                <textarea id="contacto-mensaje" name="mensaje" rows="5" maxlength="500" placeholder="Cuéntanos en qué te podemos ayudar"></textarea>
+                <span class="error-message" id="error-contacto-mensaje"></span>
+
+                <button type="submit" class="btn">Enviar mensaje</button>
+            </form>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 PixelGear Store - Duoc UC</p>
+    </footer>
+
+    <script src="js/main.js"></script>
+    <script src="js/validaciones.js"></script>
+</body>
+</html>
