@@ -33,7 +33,15 @@ function agregarAlCarrito(producto, cantidad) {
   const carrito = obtenerCarrito();
   const existente = carrito.find((item) => item.id === producto.id);
   const cantidadActual = existente ? existente.cantidad : 0;
-  const cantidadFinal = Math.min(cantidadActual + cantidad, producto.stock);
+
+  const limite = Math.min(5, producto.stock);
+
+  if (cantidadActual + cantidad > limite) {
+    alert("PixelGear: máximo 5 unidades por producto.");
+    return cantidadActual;
+  }
+
+  const cantidadFinal = cantidadActual + cantidad;
 
   if (existente) {
     existente.cantidad = cantidadFinal;
@@ -45,6 +53,7 @@ function agregarAlCarrito(producto, cantidad) {
       cantidad: cantidadFinal
     });
   }
+
   guardarCarrito(carrito);
   return cantidadFinal;
 }
