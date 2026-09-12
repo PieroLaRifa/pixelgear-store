@@ -435,6 +435,17 @@ nav ul li a.active::after {
   margin-bottom: var(--space-1);
 }
 
+/* imagen real de producto: mismo marco que el placeholder, pero con foto */
+.product-img {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  background-color: var(--bg-void);
+  border: 1px solid var(--line);
+  display: block;
+  margin-bottom: var(--space-1);
+}
+
 .card a { color: var(--ink); }
 .card a:hover { color: var(--gold-bright); }
 
@@ -458,8 +469,15 @@ nav ul li a.active::after {
   .detalle-producto { grid-template-columns: 1fr; }
 }
 
-.detalle-producto .product-img-placeholder {
-  font-size: 4rem;
+.detalle-producto .product-img {
+  width: 100%;
+}
+
+.fila-carrito .product-img {
+  width: 70px;
+  height: 70px;
+  aspect-ratio: 1/1;
+  margin-bottom: 0;
 }
 
 .selector-cantidad {
@@ -483,13 +501,6 @@ nav ul li a.active::after {
   align-items: center;
   padding: var(--space-2) 0;
   border-bottom: 1px solid var(--line);
-}
-
-.fila-carrito .product-img-placeholder {
-  aspect-ratio: 1/1;
-  width: 70px;
-  font-size: 1.2rem;
-  margin-bottom: 0;
 }
 
 .control-cantidad {
@@ -624,7 +635,112 @@ th {
 }
 
 /* --------------------------------------------------------------------------
-   9. FOOTER
+   11. PANEL ADMINISTRADOR
+   Layout con menú vertical fijo + contenido, tal como pide el mockup
+   ("Home principal: Vista con menú vertical y contenido al centro").
+   -------------------------------------------------------------------------- */
+.admin-layout {
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  min-height: calc(100vh - 130px);
+}
+
+@media (max-width: 700px) {
+  .admin-layout { grid-template-columns: 1fr; }
+}
+
+.admin-sidebar {
+  background-color: var(--bg-panel);
+  border-right: 1px solid var(--line);
+  padding: var(--space-3) 0;
+}
+
+.admin-sidebar h2 {
+  font-size: 0.85rem;
+  color: var(--ink-dim);
+  text-transform: none;
+  padding: 0 var(--space-3);
+  margin-bottom: var(--space-2);
+}
+
+.admin-sidebar ul { display: flex; flex-direction: column; }
+
+.admin-sidebar a {
+  display: block;
+  padding: 0.7rem var(--space-3);
+  color: var(--ink-dim);
+  border-left: 2px solid transparent;
+  transition: color 0.2s ease, border-color 0.2s ease, background-color 0.2s ease;
+}
+
+.admin-sidebar a:hover {
+  color: var(--ink);
+  background-color: var(--bg-panel-alt);
+}
+
+.admin-sidebar a.active {
+  color: var(--gold-bright);
+  border-left-color: var(--gold);
+  background-color: var(--bg-panel-alt);
+}
+
+.admin-content {
+  padding: var(--space-4);
+}
+
+.admin-content .toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin-bottom: var(--space-3);
+}
+
+.admin-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: var(--space-2);
+  margin-bottom: var(--space-4);
+}
+
+.admin-stat-card {
+  background-color: var(--bg-panel);
+  border: 1px solid var(--line);
+  padding: var(--space-2);
+  text-align: center;
+}
+
+.admin-stat-card strong {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 1.8rem;
+  color: var(--gold-bright);
+}
+
+.rol-tag {
+  font-size: 0.75rem;
+  padding: 0.15rem 0.5rem;
+  border: 1px solid currentColor;
+}
+
+.rol-tag--administrador { color: var(--gold-bright); }
+.rol-tag--vendedor { color: var(--ink); }
+.rol-tag--cliente { color: var(--ink-dim); }
+
+.tabla-acciones {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.tabla-acciones .btn, .tabla-acciones .btn--danger {
+  padding: 0.35rem 0.8rem;
+  font-size: 0.8rem;
+  width: auto;
+}
+
+/* --------------------------------------------------------------------------
+   12. FOOTER
    -------------------------------------------------------------------------- */
 footer {
   border-top: 1px solid var(--line);
@@ -636,7 +752,101 @@ footer {
 }
 
 /* --------------------------------------------------------------------------
-   10. RESPONSIVE
+   11. PANEL ADMINISTRADOR
+   -------------------------------------------------------------------------- */
+.admin-banner {
+  background-color: var(--blood);
+  color: var(--ink);
+  text-align: center;
+  font-size: 0.85rem;
+  letter-spacing: 0.03em;
+  padding: 0.4rem;
+}
+
+.admin-layout {
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  min-height: 75vh;
+}
+
+.admin-sidebar {
+  background-color: var(--bg-panel);
+  border-right: 1px solid var(--line);
+  padding: var(--space-3);
+}
+
+.admin-sidebar h2 {
+  font-size: 0.9rem;
+  color: var(--ink-dim);
+  margin-bottom: var(--space-2);
+}
+
+.admin-sidebar nav ul {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.admin-sidebar nav ul li a {
+  display: block;
+  padding: 0.5rem 0;
+}
+
+.admin-content {
+  padding: var(--space-4);
+}
+
+.admin-content h1 {
+  margin-bottom: var(--space-1);
+}
+
+.admin-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: var(--space-2);
+  margin: var(--space-3) 0;
+}
+
+.admin-stats .card {
+  background-image: none; /* sin marco de esquinas aquí, se ve más "panel de control" */
+  text-align: center;
+}
+
+.admin-stats .card strong {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 2rem;
+  color: var(--gold-bright);
+}
+
+.admin-toolbar {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: var(--space-2);
+}
+
+.admin-toolbar .btn {
+  width: auto;
+}
+
+.tabla-acciones {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.tabla-acciones .btn {
+  width: auto;
+  padding: 0.35rem 0.9rem;
+  font-size: 0.8rem;
+}
+
+@media (max-width: 700px) {
+  .admin-layout { grid-template-columns: 1fr; }
+  .admin-sidebar nav ul { flex-direction: row; flex-wrap: wrap; }
+}
+
+/* --------------------------------------------------------------------------
+   12. RESPONSIVE
    -------------------------------------------------------------------------- */
 @media (max-width: 640px) {
   header {

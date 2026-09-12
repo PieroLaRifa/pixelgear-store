@@ -34,7 +34,7 @@ function renderizarCarrito() {
     const fila = document.createElement("div");
     fila.className = "fila-carrito";
     fila.innerHTML = `
-      <div class="product-img-placeholder">${item.nombre.charAt(0)}</div>
+      <img class="product-img" src="${productoInfo ? productoInfo.imagen : ''}" alt="${item.nombre}">
       <div>
         <strong>${item.nombre}</strong><br>
         <span class="stock-info">${formatoCLP(item.precio)} c/u</span>

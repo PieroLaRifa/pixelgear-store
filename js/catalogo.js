@@ -28,7 +28,7 @@ function renderizarCatalogo() {
 
     articulo.innerHTML = `
       <a href="detalle-producto.html?id=${producto.id}">
-        <div class="product-img-placeholder">${producto.nombre.charAt(0)}</div>
+        <img class="product-img" src="${producto.imagen}" alt="${producto.nombre}">
       </a>
       <h3><a href="detalle-producto.html?id=${producto.id}">${producto.nombre}</a></h3>
       <span class="price">${formatoCLP(producto.precio)}</span>
@@ -72,7 +72,7 @@ function renderizarDetalleProducto() {
   const agotado = producto.stock === 0;
 
   contenedor.innerHTML = `
-    <div class="product-img-placeholder">${producto.nombre.charAt(0)}</div>
+    <img class="product-img" src="${producto.imagen}" alt="${producto.nombre}">
     <div>
       <p style="color: var(--ink-dim); margin-bottom: 0.3rem;">
         <a href="productos.html" style="color: var(--ink-dim);">Productos</a> &gt; ${producto.categoria}
@@ -123,7 +123,7 @@ function renderizarDestacados() {
     articulo.className = "card";
     articulo.innerHTML = `
       <a href="detalle-producto.html?id=${producto.id}">
-        <div class="product-img-placeholder">${producto.nombre.charAt(0)}</div>
+        <img class="product-img" src="${producto.imagen}" alt="${producto.nombre}">
       </a>
       <h3><a href="detalle-producto.html?id=${producto.id}">${producto.nombre}</a></h3>
       <span class="price">${formatoCLP(producto.precio)}</span>
