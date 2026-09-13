@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Producto | Panel Admin PixelGear</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header>
+        <div class="logo">Pixel<span>Gear</span> <span style="color: var(--ink-dim); font-size: 0.9rem;">/ Admin</span></div>
+        <nav>
+            <ul>
+                <li><a href="index.html">&larr; Volver a la tienda</a></li>
+                <li><span id="admin-sesion-info" style="color: var(--ink-dim); font-size: 0.9rem;"></span></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="admin-layout">
+        <aside class="admin-sidebar">
+            <h2>Panel Admin</h2>
+            <ul>
+                <li><a href="admin.html">Dashboard</a></li>
+                <li><a href="admin-productos.html" class="active">Productos</a></li>
+                <li id="nav-admin-usuarios"><a href="admin-usuarios.html">Usuarios</a></li>
+            </ul>
+        </aside>
+
+        <section class="admin-content">
+            <form id="form-producto" class="form-panel" style="max-width: 560px; margin: 0;" novalidate>
+                <h1 id="titulo-form-producto">Nuevo producto</h1>
+
+                <label for="producto-codigo">Código de producto</label>
+                <input type="text" id="producto-codigo" name="codigo" placeholder="Ej: TEC-009">
+                <span class="error-message" id="error-producto-codigo"></span>
+
+                <label for="producto-nombre">Nombre</label>
+                <input type="text" id="producto-nombre" name="nombre" maxlength="100">
+                <span class="error-message" id="error-producto-nombre"></span>
+
+                <label for="producto-descripcion">Descripción (opcional)</label>
+                <textarea id="producto-descripcion" name="descripcion" rows="4" maxlength="500"></textarea>
+                <span class="error-message" id="error-producto-descripcion"></span>
+
+                <div class="form-row">
+                    <div>
+                        <label for="producto-precio">Precio</label>
+                        <input type="number" id="producto-precio" name="precio" min="0" step="1">
+                        <span class="error-message" id="error-producto-precio"></span>
+                    </div>
+                    <div>
+                        <label for="producto-categoria">Categoría</label>
+                        <select id="producto-categoria" name="categoria"></select>
+                        <span class="error-message" id="error-producto-categoria"></span>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div>
+                        <label for="producto-stock">Stock</label>
+                        <input type="number" id="producto-stock" name="stock" min="0" step="1">
+                        <span class="error-message" id="error-producto-stock"></span>
+                    </div>
+                    <div>
+                        <label for="producto-stock-critico">Stock crítico (opcional)</label>
+                        <input type="number" id="producto-stock-critico" name="stockCritico" min="0" step="1">
+                        <span class="error-message" id="error-producto-stock-critico"></span>
+                    </div>
+                </div>
+
+                <label for="producto-imagen">Ruta de imagen (opcional)</label>
+                <input type="text" id="producto-imagen" name="imagen" placeholder="img/productos/mi-producto.jpg">
+
+                <button type="submit" class="btn">Guardar producto</button>
+            </form>
+        </section>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 PixelGear Store - Duoc UC</p>
+    </footer>
+
+    <script src="js/productos.js"></script>
+    <script src="js/admin-datos.js"></script>
+    <script src="js/admin-producto-form.js"></script>
+</body>
+</html>

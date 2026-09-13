@@ -34,4 +34,8 @@ function renderizarStatsAdmin() {
   `;
 }
 
-document.addEventListener("DOMContentLoaded", renderizarStatsAdmin);
+document.addEventListener("DOMContentLoaded", function () {
+  const sesion = protegerAdmin(["Administrador", "Vendedor"]);
+  if (!sesion) return;
+  renderizarStatsAdmin();
+});

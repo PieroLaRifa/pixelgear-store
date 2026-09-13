@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Productos | Panel Admin PixelGear</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header>
+        <div class="logo">Pixel<span>Gear</span> <span style="color: var(--ink-dim); font-size: 0.9rem;">/ Admin</span></div>
+        <nav>
+            <ul>
+                <li><a href="index.html">&larr; Volver a la tienda</a></li>
+                <li><span id="admin-sesion-info" style="color: var(--ink-dim); font-size: 0.9rem;"></span></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="admin-layout">
+        <aside class="admin-sidebar">
+            <h2>Panel Admin</h2>
+            <ul>
+                <li><a href="admin.html">Dashboard</a></li>
+                <li><a href="admin-productos.html" class="active">Productos</a></li>
+                <li id="nav-admin-usuarios"><a href="admin-usuarios.html">Usuarios</a></li>
+            </ul>
+        </aside>
+
+        <section class="admin-content">
+            <div class="toolbar">
+                <h1>Productos</h1>
+                <a href="admin-producto-form.html" id="btn-nuevo-producto" class="btn" style="width: auto;">+ Nuevo producto</a>
+            </div>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Código</th>
+                        <th>Nombre</th>
+                        <th>Categoría</th>
+                        <th>Precio</th>
+                        <th>Stock</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody id="cuerpo-tabla-productos"></tbody>
+            </table>
+        </section>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 PixelGear Store - Duoc UC</p>
+    </footer>
+
+    <script src="js/productos.js"></script>
+    <script src="js/admin-datos.js"></script>
+    <script src="js/admin-productos.js"></script>
+</body>
+</html>

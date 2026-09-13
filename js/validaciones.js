@@ -62,9 +62,21 @@ function initLogin() {
     const ok1 = validarCorreoLogin();
     const ok2 = validarClaveLogin();
     if (ok1 && ok2) {
-      alert("Inicio de sesión simulado correctamente. (Sin backend en esta entrega)");
-      form.reset();
-      [correo, clave].forEach((el) => el.classList.remove("field-ok"));
+      const usuarioEncontrado = typeof buscarUsuarioAdminPorCorreo === "function"
+        ? buscarUsuarioAdminPorCorreo(correo.value.trim())
+        : null;
+
+      if (usuarioEncontrado) {
+        iniciarSesion(usuarioEncontrado);
+        if (usuarioEncontrado.tipo === "Administrador" || usuarioEncontrado.tipo === "Vendedor") {
+          window.location.href = "admin.html";
+        } else {
+          alert(`¡Bienvenido, ${usuarioEncontrado.nombre}!`);
+          window.location.href = "index.html";
+        }
+      } else {
+        alert("No encontramos una cuenta con ese correo. ¿Ya te registraste?");
+      }
     }
   });
 }
@@ -357,6 +369,18 @@ function initRegistro() {
       validarDireccionCampo()
     ];
     if (resultados.every(Boolean)) {
+      if (typeof guardarUsuarioAdmin === "function") {
+        guardarUsuarioAdmin({
+          run: run.value.trim(),
+          tipo: "Cliente",
+          nombre: nombre.value.trim(),
+          apellidos: apellidos.value.trim(),
+          correo: correo.value.trim(),
+          region: region.value,
+          comuna: comuna.value,
+          direccion: direccion.value.trim()
+        });
+      }
       alert("¡Registro exitoso! Ya puedes iniciar sesión.");
       window.location.href = "login.html";
     }

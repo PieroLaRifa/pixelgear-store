@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Usuario | Panel Admin PixelGear</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header>
+        <div class="logo">Pixel<span>Gear</span> <span style="color: var(--ink-dim); font-size: 0.9rem;">/ Admin</span></div>
+        <nav>
+            <ul>
+                <li><a href="index.html">&larr; Volver a la tienda</a></li>
+                <li><span id="admin-sesion-info" style="color: var(--ink-dim); font-size: 0.9rem;"></span></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="admin-layout">
+        <aside class="admin-sidebar">
+            <h2>Panel Admin</h2>
+            <ul>
+                <li><a href="admin.html">Dashboard</a></li>
+                <li><a href="admin-productos.html">Productos</a></li>
+                <li id="nav-admin-usuarios"><a href="admin-usuarios.html" class="active">Usuarios</a></li>
+            </ul>
+        </aside>
+
+        <section class="admin-content">
+            <form id="form-usuario-admin" class="form-panel" style="max-width: 640px; margin: 0;" novalidate>
+                <h1 id="titulo-form-usuario">Nuevo usuario</h1>
+
+                <div class="form-row">
+                    <div>
+                        <label for="usuario-run">RUN (sin puntos ni guion)</label>
+                        <input type="text" id="usuario-run" name="run" maxlength="9" placeholder="19011022K">
+                        <span class="error-message" id="error-usuario-run"></span>
+                    </div>
+                    <div>
+                        <label for="usuario-tipo">Tipo de usuario</label>
+                        <select id="usuario-tipo" name="tipo"></select>
+                        <span class="error-message" id="error-usuario-tipo"></span>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div>
+                        <label for="usuario-nombre">Nombre</label>
+                        <input type="text" id="usuario-nombre" name="nombre" maxlength="50">
+                        <span class="error-message" id="error-usuario-nombre"></span>
+                    </div>
+                    <div>
+                        <label for="usuario-apellidos">Apellidos</label>
+                        <input type="text" id="usuario-apellidos" name="apellidos" maxlength="100">
+                        <span class="error-message" id="error-usuario-apellidos"></span>
+                    </div>
+                </div>
+
+                <label for="usuario-correo">Correo</label>
+                <input type="email" id="usuario-correo" name="correo" maxlength="100" placeholder="tu-correo@duoc.cl">
+                <span class="error-message" id="error-usuario-correo"></span>
+
+                <label for="usuario-fecha-nacimiento">Fecha de nacimiento (opcional)</label>
+                <input type="date" id="usuario-fecha-nacimiento" name="fechaNacimiento">
+
+                <div class="form-row">
+                    <div>
+                        <label for="usuario-region">Región</label>
+                        <select id="usuario-region" name="region"></select>
+                        <span class="error-message" id="error-usuario-region"></span>
+                    </div>
+                    <div>
+                        <label for="usuario-comuna">Comuna</label>
+                        <select id="usuario-comuna" name="comuna" disabled></select>
+                        <span class="error-message" id="error-usuario-comuna"></span>
+                    </div>
+                </div>
+
+                <label for="usuario-direccion">Dirección</label>
+                <input type="text" id="usuario-direccion" name="direccion" maxlength="300">
+                <span class="error-message" id="error-usuario-direccion"></span>
+
+                <button type="submit" class="btn">Guardar usuario</button>
+            </form>
+        </section>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 PixelGear Store - Duoc UC</p>
+    </footer>
+
+    <script src="js/regiones.js"></script>
+    <script src="js/validadores-comunes.js"></script>
+    <script src="js/admin-datos.js"></script>
+    <script src="js/admin-usuario-form.js"></script>
+</body>
+</html>

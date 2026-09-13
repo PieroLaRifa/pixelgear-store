@@ -117,3 +117,64 @@ function eliminarUsuarioAdmin(run) {
   const lista = obtenerUsuariosAdmin().filter((usuario) => usuario.run !== run);
   guardarUsuariosAdmin(lista);
 }
+
+function buscarUsuarioAdminPorCorreo(correo) {
+  return obtenerUsuariosAdmin().find(
+    (usuario) => usuario.correo.toLowerCase() === correo.toLowerCase()
+  );
+}
+
+/* -------------------- sesión (simulada, sin backend) --------------------
+   El login no valida contraseña contra un servidor: en esta entrega
+   confirmamos el correo contra el directorio de usuarios y determinamos
+   el rol para decidir a dónde redirigir. La verificación real de
+   credenciales llegará cuando se integre base de datos en la próxima
+   evaluación. */
+
+const CLAVE_SESION = "pixelgear_sesion";
+
+function iniciarSesion(usuario) {
+  localStorage.setItem(
+    CLAVE_SESION,
+    JSON.stringify({ run: usuario.run, nombre: usuario.nombre, correo: usuario.correo, tipo: usuario.tipo })
+  );
+}
+
+function obtenerSesion() {
+  const datos = localStorage.getItem(CLAVE_SESION);
+  return datos ? JSON.parse(datos) : null;
+}
+
+function cerrarSesion() {
+  localStorage.removeItem(CLAVE_SESION);
+  window.location.href = "login.html";
+}
+
+/* Llamar al inicio de cada página del admin. Si no hay sesión con un rol
+   permitido, redirige a login.html. Si hay sesión, pinta el saludo y el
+   botón de cerrar sesión en el header, y oculta el link a "Usuarios" del
+   menú lateral para el rol Vendedor (no debe ver ese mantenedor). */
+function protegerAdmin(rolesPermitidos) {
+  const sesion = obtenerSesion();
+  if (!sesion || !rolesPermitidos.includes(sesion.tipo)) {
+    alert("Debes iniciar sesión con un usuario autorizado para entrar aquí.");
+    window.location.href = "login.html";
+    return null;
+  }
+
+  const infoSesion = document.getElementById("admin-sesion-info");
+  if (infoSesion) {
+    infoSesion.innerHTML = `Hola, ${sesion.nombre} (${sesion.tipo}) &middot; <a href="#" id="btn-cerrar-sesion">Cerrar sesión</a>`;
+    document.getElementById("btn-cerrar-sesion").addEventListener("click", function (e) {
+      e.preventDefault();
+      cerrarSesion();
+    });
+  }
+
+  const linkUsuarios = document.getElementById("nav-admin-usuarios");
+  if (linkUsuarios && sesion.tipo === "Vendedor") {
+    linkUsuarios.style.display = "none";
+  }
+
+  return sesion;
+}
