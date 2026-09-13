@@ -522,9 +522,22 @@ nav ul li a.active::after {
 .control-cantidad button:hover { border-color: var(--gold); }
 
 .control-cantidad input {
-  width: 45px;
-  text-align: center;
-  margin-bottom: 0;
+    color: var(--gold-bright) !important; /* Usamos tu color dorado para que resalte */
+    background-color: var(--bg-void); 
+    text-align: center;
+    width: 50px; /* Un poco más de espacio */
+    padding: 0.2rem 0; /* Anula el padding global que aplastaba el texto */
+    margin-bottom: 0; /* Anula el margen global */
+}
+
+/* Este extra oculta las flechitas por defecto del navegador dentro del cuadro, ya que tienes tus propios botones de + y - */
+.control-cantidad input::-webkit-outer-spin-button,
+.control-cantidad input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+.control-cantidad input[type=number] {
+    -moz-appearance: textfield;
 }
 
 .resumen-carrito {
